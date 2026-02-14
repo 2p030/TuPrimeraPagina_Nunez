@@ -4,16 +4,91 @@
   <meta charset="utf-8">
   <title>{% block title %}Mini Blog{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-    body { font-family: Arial; margin: 0; background:#f6f6f6; }
-    header { background:#222; color:#fff; padding:14px 18px; }
-    nav a { color:#fff; margin-right:12px; text-decoration:none; }
-    main { padding:18px; max-width: 980px; margin: 0 auto; }
-    .card { background:#fff; padding:14px; border-radius:10px; margin-bottom:12px; }
-    input, select, textarea { width:100%; padding:10px; margin-top:6px; margin-bottom:12px; }
-    button { padding:10px 14px; cursor:pointer; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1f2937, #111827);
+      padding: 16px 24px;
+    }
+
+    nav a {
+      color: white;
+      margin-right: 18px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      transition: transform 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    .post-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    small {
+      color: #6b7280;
+    }
   </style>
 </head>
+
 <body>
   <header>
     <nav>

@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post.titulo }}{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>{{ post.titulo }}</h1>
+    <p><b>Autor:</b> {{ post.autor }}</p>
+    <p><b>Categoría:</b> {{ post.categoria|default:"(sin categoría)" }}</p>
+    <p>{{ post.contenido }}</p>
+    <small>Publicado el {{ post.creado_en }}</small>
+  </div>
+{% endblock %}

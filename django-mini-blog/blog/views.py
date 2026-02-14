@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from .forms import AutorForm, CategoriaForm, PostForm, BuscarPostForm
 from .models import Post
+from django.shortcuts import get_object_or_404
 
 def home(request):
     posts = Post.objects.order_by("-creado_en")[:10]
@@ -52,3 +53,7 @@ def buscar_post(request):
         "form": form,
         "resultados": resultados
     })
+
+def detalle_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, "blog/detalle_post.html", {"post": post})

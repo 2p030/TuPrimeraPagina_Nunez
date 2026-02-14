@@ -4,16 +4,16 @@
 {% block content %}
   <h1>Últimos posts</h1>
 
-  {% if posts %}
-    {% for p in posts %}
+  {% for p in posts %}
+    <a href="{% url 'detalle_post' p.id %}" class="post-link">
       <div class="card">
         <h2>{{ p.titulo }}</h2>
         <p><b>Autor:</b> {{ p.autor }} | <b>Categoría:</b> {{ p.categoria|default:"(sin categoría)" }}</p>
-        <p>{{ p.contenido|truncatechars:220 }}</p>
+        <p>{{ p.contenido|truncatechars:180 }}</p>
         <small>Creado: {{ p.creado_en }}</small>
       </div>
-    {% endfor %}
-  {% else %}
-    <p>No hay posts aún. Crea uno en “Nuevo Post”.</p>
-  {% endif %}
+    </a>
+  {% empty %}
+    <p>No hay posts aún.</p>
+  {% endfor %}
 {% endblock %}
