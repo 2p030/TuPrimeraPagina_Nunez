@@ -1,59 +1,50 @@
-from django.shortcuts import render, redirect
-from django.db.models import Q
-from .forms import AutorForm, CategoriaForm, PostForm, BuscarPostForm
-from .models import Post
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import Page
+
 
 def home(request):
-    posts = Post.objects.order_by("-creado_en")[:10]
-    return render(request, "blog/home.html", {"posts": posts})
+    return render(request, "blog/home.html")
 
-def crear_autor(request):
-    if request.method == "POST":
-        form = AutorForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
-    else:
-        form = AutorForm()
-    return render(request, "blog/autor_form.html", {"form": form})
 
-def crear_categoria(request):
-    if request.method == "POST":
-        form = CategoriaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
-    else:
-        form = CategoriaForm()
-    return render(request, "blog/categoria_form.html", {"form": form})
+def about(request):
+    return render(request, "blog/about.html")
 
-def crear_post(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
-    else:
-        form = PostForm()
-    return render(request, "blog/post_form.html", {"form": form})
 
-def buscar_post(request):
-    form = BuscarPostForm(request.GET or None)
-    resultados = []
+class PageListView(ListView):
+    model = Page
+    template_name = "blog/pages_list.html"
+    context_object_name = "pages"
+    ordering = ["-id"]
 
-    if form.is_valid():
-        q = form.cleaned_data.get("q", "")
-        if q:
-            resultados = Post.objects.filter(
-                Q(titulo__icontains=q) | Q(contenido__icontains=q)
-            ).order_by("-creado_en")
 
-    return render(request, "blog/buscar.html", {
-        "form": form,
-        "resultados": resultados
-    })
+class PageDetailView(DetailView):
+    model = Page
+    template_name = "blog/page_detail.html"
 
-def detalle_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    return render(request, "blog/detalle_post.html", {"post": post})
+
+class PageCreateView(LoginRequiredMixin, CreateView):
+    model = Page
+    fields = ["titulo", "subtitulo", "contenido", "imagen", "fecha"]
+    template_name = "blog/page_form.html"
+    success_url = reverse_lazy("pages_list")
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+
+
+class PageUpdateView(LoginRequiredMixin, UpdateView):
+    model = Page
+    fields = ["titulo", "subtitulo", "contenido", "imagen", "fecha"]
+    template_name = "blog/page_form.html"
+    success_url = reverse_lazy("pages_list")
+
+
+class PageDeleteView(LoginRequiredMixin, DeleteView):
+    model = Page
+    template_name = "blog/page_delete.html"
+    success_url = reverse_lazy("pages_list")

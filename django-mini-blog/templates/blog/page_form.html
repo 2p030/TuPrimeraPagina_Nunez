@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Formulario de página</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+
+<p>
+    <a href="{% url 'pages_list' %}">Volver</a>
+</p>
+{% endblock %}

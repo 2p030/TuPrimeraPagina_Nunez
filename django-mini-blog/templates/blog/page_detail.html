@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-detail">
+    <h1>{{ object.titulo }}</h1>
+    <h3>{{ object.subtitulo }}</h3>
+
+    <p>
+        <strong>Autor:</strong> {{ object.autor.username }}<br>
+        <strong>Fecha:</strong> {{ object.fecha }}
+    </p>
+
+    {% if object.imagen %}
+        <img src="{{ object.imagen.url }}" alt="{{ object.titulo }}" class="page-detail-image">
+    {% endif %}
+
+    <div class="page-content">
+        {{ object.contenido|safe }}
+    </div>
+
+    {% if user.is_authenticated %}
+        <p>
+            <a href="{% url 'page_edit' object.pk %}">Editar</a>
+            |
+            <a href="{% url 'page_delete' object.pk %}">Borrar</a>
+        </p>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'pages_list' %}">Volver a páginas</a>
+    </p>
+</div>
+{% endblock %}

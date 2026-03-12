@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ message.subject }}</h1>
+
+<p><strong>De:</strong> {{ message.sender.username }}</p>
+<p><strong>Para:</strong> {{ message.receiver.username }}</p>
+<p><strong>Fecha:</strong> {{ message.created_at }}</p>
+
+<div class="page-card">
+    <p>{{ message.body }}</p>
+</div>
+
+<p>
+    <a href="{% url 'inbox' %}">Volver a bandeja</a>
+</p>
+{% endblock %}
