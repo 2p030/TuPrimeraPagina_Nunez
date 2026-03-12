@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Iniciar sesión</h2>
+<div class="form-shell">
+    <h1 class="form-title">Iniciar sesión</h1>
+    <p class="form-subtitle">Accede a tu cuenta para administrar tu contenido.</p>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Ingresar</button>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Ingresar</button>
+            <a class="btn btn-secondary" href="{% url 'home' %}">Volver</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

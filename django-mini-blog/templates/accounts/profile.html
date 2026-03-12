@@ -1,26 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Mi perfil</h2>
+<div class="profile-grid">
+    <div class="profile-card">
+        {% if request.user.profile.avatar %}
+            <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="profile-avatar">
+        {% else %}
+            <div class="profile-avatar profile-avatar-placeholder">
+                <span>{{ request.user.username|first|upper }}</span>
+            </div>
+        {% endif %}
 
-<p><strong>Usuario:</strong> {{ request.user.username }}</p>
-<p><strong>Nombre:</strong> {{ request.user.first_name }}</p>
-<p><strong>Apellido:</strong> {{ request.user.last_name }}</p>
-<p><strong>Email:</strong> {{ request.user.email }}</p>
+        <h2 class="profile-name">
+            {{ request.user.first_name|default:"Usuario" }} {{ request.user.last_name }}
+        </h2>
+        <p class="profile-username">@{{ request.user.username }}</p>
+    </div>
 
-{% if request.user.profile.avatar %}
-    <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" width="150">
-{% endif %}
+    <div class="profile-info">
+        <h1>Mi perfil</h1>
 
-<p><strong>Biografía:</strong> {{ request.user.profile.biografia }}</p>
-<p><strong>Fecha de nacimiento:</strong> {{ request.user.profile.fecha_nacimiento }}</p>
-<p><strong>Link:</strong> {{ request.user.profile.link }}</p>
+        <div class="info-list">
+            <div class="info-label">Usuario</div>
+            <div class="info-value">{{ request.user.username }}</div>
 
-<p>
-    <a href="{% url 'edit_profile' %}">Editar perfil</a>
-</p>
+            <div class="info-label">Nombre</div>
+            <div class="info-value">{{ request.user.first_name|default:"Sin nombre" }}</div>
 
-<p>
-    <a href="{% url 'password_change' %}">Cambiar contraseña</a>
-</p>
+            <div class="info-label">Apellido</div>
+            <div class="info-value">{{ request.user.last_name|default:"Sin apellido" }}</div>
+
+            <div class="info-label">Email</div>
+            <div class="info-value">{{ request.user.email }}</div>
+
+            <div class="info-label">Biografía</div>
+            <div class="info-value">{{ request.user.profile.biografia|default:"Sin biografía" }}</div>
+
+            <div class="info-label">Fecha de nacimiento</div>
+            <div class="info-value">{{ request.user.profile.fecha_nacimiento|default:"No especificada" }}</div>
+
+            <div class="info-label">Link</div>
+            <div class="info-value">{{ request.user.profile.link|default:"No especificado" }}</div>
+        </div>
+
+        <div class="detail-actions">
+            <a class="btn btn-primary" href="{% url 'edit_profile' %}">Editar perfil</a>
+            <a class="btn btn-secondary" href="{% url 'password_change' %}">Cambiar contraseña</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

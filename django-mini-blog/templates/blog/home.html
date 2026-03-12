@@ -1,7 +1,88 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Bienvenido a mi blog</h1>
-<p>Este es mi proyecto final realizado con Django.</p>
-<p>Aquí podrás ver páginas, leer contenido y administrar tu perfil.</p>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Comparte ideas, historias y contenido de forma simple.</h1>
+        <p>
+            Este es mi proyecto final desarrollado con Django. Aquí puedes publicar páginas,
+            administrar tu perfil y comunicarte con otros usuarios dentro de una interfaz clara y moderna.
+        </p>
+
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{% url 'pages_list' %}">Explorar páginas</a>
+
+            {% if user.is_authenticated %}
+                <a class="btn btn-secondary" href="{% url 'page_create' %}">Crear contenido</a>
+            {% else %}
+                <a class="btn btn-secondary" href="{% url 'signup' %}">Crear cuenta</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="hero-panel">
+        <h3>Proyecto final Django</h3>
+        <p>
+            Incluye autenticación, perfiles, CRUD completo de páginas,
+            panel admin y mensajería entre usuarios.
+        </p>
+    </div>
+</section>
+
+<section class="stats-row">
+    <div class="stat-card">
+        <h3>Páginas publicadas</h3>
+        <p>{{ pages_count }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Usuarios registrados</h3>
+        <p>{{ users_count }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Mensajes enviados</h3>
+        <p>{{ messages_count }}</p>
+    </div>
+</section>
+
+<section>
+    <div class="section-header">
+        <div>
+            <h2 class="section-title">Últimas páginas</h2>
+            <p class="section-subtitle">Contenido reciente publicado en el sitio.</p>
+        </div>
+    </div>
+
+    {% if latest_pages %}
+        <div class="grid">
+            {% for page in latest_pages %}
+                <article class="card">
+                    {% if page.imagen %}
+                        <img src="{{ page.imagen.url }}" alt="{{ page.titulo }}" class="card-image">
+                    {% else %}
+                        <div class="card-image card-placeholder">
+                            <span>Sin imagen</span>
+                        </div>
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h3 class="card-title">{{ page.titulo }}</h3>
+                        <p class="card-subtitle">{{ page.subtitulo }}</p>
+                        <p class="card-meta">Autor: {{ page.autor.username }} · Fecha: {{ page.fecha }}</p>
+
+                        <div class="card-actions">
+                            <a class="btn btn-primary" href="{% url 'page_detail' page.pk %}">Leer más</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3>Aún no hay contenido</h3>
+            <p>Cuando se publiquen páginas, aparecerán aquí.</p>
+        </div>
+    {% endif %}
+</section>
 {% endblock %}

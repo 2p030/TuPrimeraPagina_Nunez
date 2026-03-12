@@ -1,24 +1,34 @@
-# Mini Blog Django (MVT)
+# MiBlog - Proyecto Final Django
 
-Proyecto web en Django que cumple:
-- Patrón MVT
-- Herencia de plantillas (base.html)
-- 3 modelos: Autor, Categoria, Post
-- Formularios para crear Autor, Categoria y Post
-- Formulario de búsqueda en BD (sobre Post)
-- Proyecto listo para subir a GitHub
+Proyecto web desarrollado con Django como entrega final.
 
-## Requisitos
-- Python 3.10+ (recomendado)
+## Funcionalidades
+
+- Home con estadísticas
+- Vista About
+- CRUD completo de páginas
+- Detalle de páginas con “Leer más”
+- Buscador de páginas
+- Paginación
+- Registro de usuarios
+- Login y logout
+- Perfil editable con avatar
+- Cambio de contraseña
+- Mensajería entre usuarios
+- Panel administrativo de Django
+
+## Tecnologías utilizadas
+
+- Python
 - Django
+- SQLite
+- HTML
+- CSS
+- CKEditor
 
 ## Instalación
-```bash
-python -m venv venv
-# activar:
-# Windows: venv\Scripts\activate
-# Linux/Mac: source venv/bin/activate
 
-pip install django
-python manage.py migrate
-python manage.py runserver
+Clonar repositorio y luego instalar dependencias:
+
+```bash
+pip install -r requirements.txt

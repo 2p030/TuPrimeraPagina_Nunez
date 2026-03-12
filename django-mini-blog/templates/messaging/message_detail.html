@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ message.subject }}</h1>
+<div class="detail-shell">
+    <h1 class="detail-title">{{ message.subject }}</h1>
+    <p class="detail-meta">
+        De: {{ message.sender.username }} · Para: {{ message.receiver.username }} · Fecha: {{ message.created_at }}
+    </p>
 
-<p><strong>De:</strong> {{ message.sender.username }}</p>
-<p><strong>Para:</strong> {{ message.receiver.username }}</p>
-<p><strong>Fecha:</strong> {{ message.created_at }}</p>
+    <div class="detail-content">
+        <p>{{ message.body }}</p>
+    </div>
 
-<div class="page-card">
-    <p>{{ message.body }}</p>
+    <div class="detail-actions">
+        <a class="btn btn-secondary" href="{% url 'inbox' %}">Volver</a>
+    </div>
 </div>
-
-<p>
-    <a href="{% url 'inbox' %}">Volver a bandeja</a>
-</p>
 {% endblock %}

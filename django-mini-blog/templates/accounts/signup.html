@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Registrarse</h2>
+<div class="form-shell">
+    <h1 class="form-title">Crear cuenta</h1>
+    <p class="form-subtitle">Regístrate para crear páginas y comunicarte con otros usuarios.</p>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Crear cuenta</button>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Registrarme</button>
+            <a class="btn btn-secondary" href="{% url 'home' %}">Volver</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Enviar mensaje</h1>
+<div class="form-shell">
+    <h1 class="form-title">Enviar mensaje</h1>
+    <p class="form-subtitle">Escribe un mensaje y selecciónalo para otro usuario.</p>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enviar</button>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-<p>
-    <a href="{% url 'inbox' %}">Volver</a>
-</p>
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Enviar</button>
+            <a class="btn btn-secondary" href="{% url 'inbox' %}">Cancelar</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

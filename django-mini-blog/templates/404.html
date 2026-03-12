@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="detail-shell" style="text-align:center;">
+    <h1 class="detail-title">404</h1>
+    <p class="detail-subtitle">La página que buscas no existe.</p>
+    <div class="detail-actions" style="justify-content:center;">
+        <a class="btn btn-primary" href="{% url 'home' %}">Volver al inicio</a>
+        <a class="btn btn-secondary" href="{% url 'pages_list' %}">Ir a páginas</a>
+    </div>
+</div>
+{% endblock %}
